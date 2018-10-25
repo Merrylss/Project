@@ -1,0 +1,52 @@
+body{
+    padding:100px;
+}
+.zhuce1{
+
+    border:none;
+    margin-top:50px;
+}
+.zhuce11{
+    background-color:black;
+}
+.panel-default>.panel-heading {
+    color: #333;
+    background-color: white;
+    border:none;
+}
+.zhuce111{
+    color:black;
+    font-size:22px;
+    font-weight: bold;
+    /*text-align: center;*/
+}
+
+.inpwid{
+    width:100%;
+}
+.zhucebtn1{
+    height:38px;
+    border-radius: 0;
+    /*background-color:#337ab7 ;*/
+}
+.zhucebtn2{
+    width:100%;
+    height:38px;
+    border-radius: 0;
+}
+
+.show-mobb{
+    margin-top:70px;
+}
+
+.dzqh:hover{
+   text-decoration: none;
+    background-color:black ;
+    color:white;
+}
+
+.kuorong{
+
+    width: auto;
+    height:200px;
+}

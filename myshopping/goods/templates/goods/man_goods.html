@@ -1,0 +1,126 @@
+
+{% extends 'base.html' %}
+
+{% block content%}
+{% load static %}
+<script src="{% static 'common/js/app/index.js' %}"></script>
+<div class="container neirong1">
+    <div class="row">
+        <div class="col-md-12">
+
+            <ul class="astu">
+                {% for goods in goods_list_1 %}
+                <li class="stu">
+                    <a class="afont" href="{% url 'goods:goods_info' goods.id %}">
+                        <img src="/{{goods.goodsimages_set.all.first.path}}" alt="">
+                        <h3 class="h3font">{{goods.name}}</h3>
+                        <p class="goodsprice">{{goods.price}}</p>
+                    </a>
+                    <a class="add-cart" style=" margin-left: 195px;cursor:pointer;" goods_id="{{goods.id}}">加入购物车</a>
+                </li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+</div>
+{% endblock %}
+{% block content2 %}
+<div class="biaoti1">本月主推</div>
+<div class="banel">
+    <div class="box">
+        <ul class="ambox">
+         {% for goods in goods_list_4 %}
+            <li class="mbox">
+                <a class="neirong2a1" href="{% url 'goods:goods_info' goods.id %}">
+                <img src="/{{goods.goodsimages_set.all.first.path}}" alt=""><br>
+                <span class="neirong2font">{{goods.name}}</span><br>
+                <span class="neirong2font1">{{goods.price}}</span>
+                </a>
+                <a class="add-cart" style=" margin-left: 30px;cursor:pointer;" goods_id="{{goods.id}}">加入购物车</a>
+
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="box">
+        <ul class="ambox">
+            {% for goods in goods_list_4|slice:"4:8" %}
+            <li class="mbox">
+                <a class="neirong2a1" href="{% url 'goods:goods_info' goods.id %}">
+                <img src="/{{goods.goodsimages_set.all.first.path}}" alt="">
+                <br>
+                <span class="neirong2font">{{goods.name}}</span><br>
+                <span class="neirong2font1">{{goods.price}}</span>
+                    </a>
+                <a class="add-cart" style=" margin-left: 30px;cursor:pointer;" goods_id="{{goods.id}}">加入购物车</a>
+
+            </li>
+            {% endfor %}
+        </ul>
+        </div>
+
+</div>
+
+{% endblock %}
+<!-----------------------------------------内容2------------------------------------------------->
+{% block hot %}
+<div class="biaoti2">本周热卖</div>
+<div class="banel">
+    <div class="box1">
+        <ul class="ambox">
+            {% for goods in goods_list_5|slice:":4" %}
+            <li class="mbox">
+                <a class="neirong2a1" href="{% url 'goods:goods_info' goods.id %}">
+                <img src="/{{goods.goodsimages_set.all.first.path}}" alt=""><br>
+                <span class="neirong2font">{{goods.name}}</span><br>
+                <span class="neirong2font1">{{goods.price}}</span>
+                <a class="add-cart" style=" margin-left: 30px;cursor:pointer;" goods_id="{{goods.id}}">加入购物车</a>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="box1">
+        <ul class="ambox">
+            {% for goods in goods_list_5|slice:"4:8" %}
+            <li class="mbox">
+                <a class="neirong2a1" href="{% url 'goods:goods_info' goods.id %}">
+                <img src="/{{goods.goodsimages_set.all.first.path}}" alt=""><br>
+                <span class="neirong2font">{{goods.name}}</span><br>
+                <span class="neirong2font1">{{goods.price}}</span>
+                <a class="add-cart" style=" margin-left: 30px;cursor:pointer;" goods_id="{{goods.id}}">加入购物车</a>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+        </div>
+    <div class="box1">
+        <ul class="ambox">
+            {% for goods in goods_list_5|slice:"8:12" %}
+            <li class="mbox">
+                <a class="neirong2a1" href="{% url 'goods:goods_info' goods.id %}">
+                <img src="/{{goods.goodsimages_set.all.first.path}}" alt=""><br>
+                <span class="neirong2font">{{goods.name}}</span><br>
+                <span class="neirong2font1">{{goods.price}}</span>
+                <a class="add-cart" style=" margin-left: 30px;cursor:pointer;" goods_id="{{goods.id}}">加入购物车</a>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+        </div>
+    <div class="box1">
+        <ul class="ambox">
+            {% for goods in goods_list_5|slice:"12:16" %}
+            <li class="mbox">
+                <a class="neirong2a1" href="{% url 'goods:goods_info' goods.id %}">
+                <img src="/{{goods.goodsimages_set.all.first.path}}" alt=""><br>
+                <span class="neirong2font">{{goods.name}}</span><br>
+                <span class="neirong2font1">{{goods.price}}</span>
+                <a class="add-cart" style=" margin-left: 30px;cursor:pointer;" goods_id="{{goods.id}}">加入购物车</a>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+        </div>
+</div>
+{% endblock %}

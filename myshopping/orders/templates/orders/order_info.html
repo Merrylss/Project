@@ -1,0 +1,37 @@
+{% extends 'base.html'%}
+{% block lunbo %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'shopcart/css/shop_cart_info.css'%}">
+<div class="box111">
+    <h3>查看订单详情</h3>
+<div>
+    订单编号：{{order.id}}
+    <p>下单时间：{{order.order_time|date:'Y-m-d G:i:s'}}</p>
+    <p>收货地址：{{order.address}}</p>
+    <p>总计金额：{{order.total}}</p>
+</div>
+<hr>
+<div style="width: 800px;">
+    {% for orderitem in order.myorderitem_set.all %}
+    <img src="/{{orderitem.goods_img}}" alt="">
+    <p>商品名称：{{orderitem.goods_name}}</p>
+    <p>成交价格：{{orderitem.goods_price}}</p>
+    <p>购买数量：{{orderitem.goods_count}}</p>
+    <p>小计金额：{{orderitem.goods_subtotal}}</p>
+    {% empty %}
+    <p>没有购买商品</p>
+    {% endfor %}
+</div>
+
+</div>
+{% endblock %}
+{% block content %}{% endblock %}
+{% block content2 %}{% endblock %}
+
+
+
+
+
+
+
+

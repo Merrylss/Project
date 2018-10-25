@@ -1,0 +1,83 @@
+{% extends 'base.html'%}
+{% block lunbo %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'shopcart/css/shop_cart_info.css'%}">
+<div class="box111">
+<div class="shop_card_box box222">
+    {% for sc in shop_cart_list %}
+<input type="hidden" name="sc" value="{{sc.id}}">
+{% endfor %}
+<!--展示用户收货地址-->
+{% for shop_cart in shop_cart_list %}
+
+<div>
+    <img src="/{{shop_cart.goods.goodsimages_set.first.path}}" alt="">
+    <span>商品名称：{{shop_cart.goods.name}}</span>
+    <span>商品价格：{{shop_cart.goods.price}}</span>
+    <span>商品数量：{{shop_cart.count}}</span>
+    <span>总金额：{{shop_cart.total}}</span>
+</div>
+{% endfor %}
+<hr>
+<h2>提交付款</h2>
+<form action="{% url 'orders:order_done' %}" method="post">
+<link rel="stylesheet" href="{% static 'shopcart/css/order_confirm.css'%}">
+
+    {% csrf_token %}
+
+    <!--
+    1. 用户收货地址 : input:radio
+    2. 用户购物车结算商品:shop_cart_list
+    -->
+    选择收货地址：
+    <!--展示用户所有收货地址-->
+    <br />
+    {% for sc in shop_cart_list %}
+    <input type="hidden" name="sc" value="{{sc.id}}">
+    {% endfor %}
+
+    {% for address in shop_cart_list.first.users.address_set.all %}
+    {% if address.is_default %}
+        <input type="radio" name="addr_id" checked value="{{address.id}}">
+        {{address.consignee}}--{{address.phone}}--{{address.nation}}->{{address.province}}->{{address.city}}->{{address.country}}->{{address.street}}->{{address.intro}}
+        <br />
+    {% else %}
+        <input type="radio" name="addr_id" value="{{address.id}}">
+        {{address.consignee}}--{{address.phone}}--{{address.nation}}->{{address.province}}->{{address.city}}->{{address.country}}->{{address.street}}->{{address.intro}}
+        <br />
+    {% endif %}
+
+    {% empty %}
+    <div>没有收获地址，请<a href="{% url 'users:add_address' %}">添加</a></div>
+    {% endfor %}
+    <input type="submit" value="提交订单">
+
+</form>
+</div>
+</div>
+{% endblock %}
+{% block content %}{% endblock %}
+{% block content2 %}{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>确认订单</title>
+</head>
+<body>
+<h2>请确认订单信息</h2>
+
+</body>
+</html>

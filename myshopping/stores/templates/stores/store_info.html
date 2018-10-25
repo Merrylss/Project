@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="{% url 'common:index' %}">首页</a><br>
+<table border="1">
+    <tr>
+        <td>店铺名称</td>
+        <td>{{store.name}}</td>
+    </tr>
+    <tr>
+        <td>店铺介绍</td>
+        <td>{{store.intro}}</td>
+    </tr>
+        <td>店铺状态</td>
+        <td>
+            {% if store.status == 0 %}
+            关闭
+            {% elif store.status == 1 %}
+            正常
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td>开店时间</td>
+        <td>{{store.add_time}}</td>
+    </tr>
+
+
+</table>
+<a href="{% url 'stores:store_close' store.id%}">关店</a><br>
+    <a href="{% url 'stores:store_del' store.id%}">删店铺店</a><br>
+    <a href="{% url 'stores:store_update' store.id%}">修改铺店信息</a><br>
+    <a href="{% url 'goods:goods_upload' store.id%}">上传商品</a><br>
+<hr>
+<h2>商品</h2>
+{% for goods in store.goods_set.all %}
+<div>
+    <table border="1">
+       <tr>
+        <td>商品图片</td>
+        <td><img src="/{{goods.goodsimages_set.all.first.path}}" alt=""></td>
+    </tr>
+    <tr>
+        <td>商品名称</td>
+        <td>{{goods.name}}</td>
+    </tr>
+        <td>商品类型</td>
+        <td>{{goods.goodstype.parent.name}}----{{goods.goodstype.name}}</td>
+    </tr>
+    <tr>
+        <td>商品价格</td>
+        <td>{{goods.price}}</td>
+    </tr>
+        <tr>
+            <td>
+                <a href="{% url 'goods:goods_info' goods.id %}">查看详情</a>
+                <a href="#">修改商品</a>
+                <a href="#">删除商品</a>
+            </td>
+        </tr>
+    </table>
+    <p></p>
+    <p>商品名称{{goods.name}}</p>
+</div>
+{% empty %}
+<div>当前商店没有商品</div>
+{% endfor %}
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+.type2{
+    display: none;
+}
+.type1li{
+    width:300px;
+}
+
+#goodscontainer img{
+    width: 200px;
+    height: 200px;
+}
+
+.goodsbox{
+    width: 200px;
+    height: auto;
+    float: left;
+}
+
+h3{
+    clear: both;
+}
+
+.add-cart{
+
+    margin-left: 200px;
+}

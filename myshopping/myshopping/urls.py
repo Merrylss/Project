@@ -19,5 +19,11 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^users/', include('users.urls',namespace='users')),
+    url(r'^search/',include("haystack.urls")), # 配置检索的路由
+    url(r'^users/', include('users.urls', namespace='users')),
+    url(r'^stores/', include('stores.urls', namespace='stores')),
+    url(r'^goods/', include('goods.urls', namespace='goods')),
+    url(r'^shopcart/', include('shopcart.urls', namespace='shopcart')),
+    url(r'^orders/', include('orders.urls', namespace='orders')),
+    url(r'^', include('common.urls', namespace='common')),
 ]

@@ -1,0 +1,114 @@
+{% extends 'base.html'%}
+{% block lunbo %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'users/css/login.css' %}">
+<link rel="stylesheet" href="{% static 'goods/css/goods_info.css' %}">
+<script src="{% static 'goods/js/app/goods_info.js' %}"></script>
+<!--------------------------------注册----------------------------------------------------->
+<div class="singleshow">
+    <div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <img class="tupian" src="/{{goods.goodsimages_set.all.first.path}}" alt="">
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-default xiangqing">
+            <div class="panel-body">
+                <h3>商品名称：{{goods.name}}</h3>
+                <hr>
+                <h4>商品价格：{{goods.price}}</h4>
+                <hr>
+                <h4>商品库存：{{goods.stock}}</h4>
+                <hr>
+                <h4>上架时间：{{goods.add_time|date:'Y-m-d'}}</h4>
+                <!--<hr>-->
+                    <!--<div class="form-group">-->
+                        <!--&lt;!&ndash;<label for="cima">商品尺码</label>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<select class="form-control " id="cima" name="cima">&ndash;&gt;-->
+                        <!--<option>1</option>-->
+                        <!--<option>2</option>-->
+                        <!--<option>3</option>-->
+                        <!--<option>4</option>-->
+                        <!--<option>5</option>-->
+                        <!--</select>-->
+                    <!--</div>-->
+                    <hr>
+                <br>
+                    购买商品数量：<input type="text" name="count" id="count">
+                <button id="add-cart" goods_id="{{goods.id}}">加入购物车</button>
+                <div id="war" style="display: none">
+                    ===================商品添加成功
+                </div>
+
+                <br>
+                <br>
+                <br>
+                <p>价格说明：上文显示的划线价格系该商品的建议零售价（而非法律意义上的原价），仅供您参考。</p>
+            </div>
+</div>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}
+{% block content %}{% endblock %}
+{% block content2 %}{% endblock %}
+
+
+
+
+
+
+<!--====================================================================-->
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+    <!--<meta charset="UTF-8">-->
+    <!--<title>商品信息</title>-->
+    <!--{% load static %}-->
+    <!--<script src="{% static 'js/lib/jquery2.2.4/jquery-2.2.4.js' %}"></script>-->
+    <!--<script src="{% static 'goods/js/app/goods_info.js' %}"></script>-->
+<!--</head>-->
+<!--<body>-->
+<!--<a href="{% url 'common:index' %}">首页</a>-->
+<!--<table border="1">-->
+    <!--<tr>-->
+        <!--<td>商品图片</td>-->
+        <!--<td><img src="/{{goods.goodsimages_set.all.first.path}}" alt=""></td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+        <!--<td>商品名称</td>-->
+        <!--<td>{{goods.name}}</td>-->
+    <!--</tr>-->
+        <!--<td>商品类型</td>-->
+        <!--<td>{{goods.goodstype.parent.name}}&#45;&#45;&#45;&#45;{{goods.goodstype.name}}</td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+        <!--<td>商品价格</td>-->
+        <!--<td>{{goods.price}}</td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+        <!--<td>商品库存</td>-->
+        <!--<td>{{goods.stock}}</td>-->
+    <!--</tr>-->
+    <!--<tr>-->
+        <!--<td>商品介绍</td>-->
+        <!--<td>{{goods.intro}}</td>-->
+    <!--</tr><tr>-->
+        <!--<td>上架时间</td>-->
+        <!--<td>{{goods.add_time|date:'Y-m-d G:i:s'}}</td>-->
+    <!--</tr>-->
+<!--</table>-->
+
+    <!--购买商品数量：<input type="text" name="count" id="count">-->
+    <!--<button id="add-cart" goods_id="{{goods.id}}">加入购物车</button>-->
+
+<!--<br>-->
+
+<!--<div id="war" style="display: none">-->
+    <!--===================商品添加成功-->
+<!--</div>-->
+
+<!--</body>-->
+<!--</html>-->

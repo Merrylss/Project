@@ -1,0 +1,93 @@
+{% extends 'base.html'%}
+{% block lunbo %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'users/css/userinfo.css' %}">
+<div class="container userinfo1">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-3">
+                <div class="panel panel-default pan1">
+                  <div class="panel-body">
+                    <h3 class="panel-title"><i class="glyphicon glyphicon-user"></i> adiCLUB 账户</h3>
+                  </div>
+                  <div class="panel-heading">
+                    <h3 class="panel-title tit1">个人信息</h3>
+                  </div>
+                  <div class="panel-body">
+                    <ul class="u1">
+                        <li class="u1l"><a class="u1la" href="">我的账户首页</a></li>
+                        <li class="u1l"><a class="u1la" href="">我的个人信息</a></li>
+                        <li class="u1l"><a class="u1la" href="{% url 'users:address_list' %}">我的地址薄</a></li>
+                        <li class="u1l"><a class="u1la" href="{% url 'users:add_address' %}">添加收货地址</a></li>
+                        <li class="u1l"><a class="u1la" href="">我的积分</a></li>
+                        <li class="u1l"><a class="u1la" href="">我的优惠卷</a></li>
+                        <li class="u1l"><a class="u1la" href="">我的订阅</a></li>
+                    </ul>
+                  </div>
+                  <div class="panel-heading">
+                    <h3 class="panel-title tit1">订单信息</h3>
+                  </div>
+                  <div class="panel-body">
+                    <ul class="u1">
+                        <li class="u1l"><a class="u1la" href="">我的订单</a></li>
+                        <li class="u1l"><a class="u1la" href="">我的退单</a></li>
+                    </ul>
+                  </div>
+                  <div class="panel-heading">
+                    <h3 class="panel-title tit1">帮助</h3>
+                  </div>
+                  <div class="panel-body">
+                    <ul class="u1">
+                        <li class="u1l"><a class="u1la" href="">关于订单</a></li>
+                        <li class="u1l"><a class="u1la" href="">关于支付</a></li>
+                        <li class="u1l"><a class="u1la" href="">我物流配送</a></li>
+                        <li class="u1l"><a class="u1la" href="">退货退款</a></li>
+                        <li class="u1l"><a class="u1la" href="">会员规则</a></li>
+                        <li class="u1l"><a class="u1la" href="">关于adiCLUB</a></li>
+                    </ul>
+                  </div>
+            </div>
+            </div>
+<!--=================================================================-->
+            <div class="col-md-9">
+                <div class="panel panel-default pan1">
+                  <div class="panel-heading">
+                    <h3 class="panel-title tit1">账户信息</h3>
+                  </div>
+
+                </div>
+
+                <table border="1">
+                    {% for addr in address_list %}
+                    <tr>
+                        <td>{{addr.consignee}}</td>
+                        <td>{{addr.phone}}</td>
+                        <td>{{addr.province}}</td>
+                        <td>{{addr.city}}</td>
+                        <td>{{addr.country}}</td>
+                        <td>{{addr.street}}</td>
+                        <td>{{addr.intro}}</td>
+                        <br />
+                        <td>
+                            {% if addr.is_default %}
+                            默认地址
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td>没有收货地址</td>
+                    </tr>
+                    {% endfor %}
+
+</table>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--========================================================================-->
+{% endblock %}
+{% block content %}{% endblock %}
+{% block content2 %}{% endblock %}

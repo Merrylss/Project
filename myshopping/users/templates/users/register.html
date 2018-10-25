@@ -1,17 +1,113 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>注册页面</title>
-</head>
-<body>
-<form action="{% url 'users:user_register' %}" method="POST">
-    {% csrf_token %}
-    账号：<input type="text" name="username" id ="username"><br>
-    密码：<input type="password" name="password" id ="password"><br>
-    确认密码：<input type="password" name="con_password" id="con_password"><br>
-    昵称：<input type="text" name="nickname" id="nickname"><br>
-    <input type="submit" value="注册用户">
-</form>
-</body>
-</html>
+{% extends 'base.html'%}
+{% block lunbo %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'users/css/login.css' %}">
+<script src="{% static 'users/js/app/register.js' %}"></script>
+<!--------------------------------注册----------------------------------------------------->
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-5">
+                <div class="panel panel-default zhuce1" >
+                  <div class="panel-heading zhuce11">
+                    <h3 class="panel-title zhuce111" >用户注册 | <a class="dzqh" href="{% url 'users:user_login' %}">用户登陆</a></h3>
+                  </div>
+                  <div class="panel-body">
+                    <form class="form-horizontal" action="{% url 'users:user_register' %}" method="POST">
+                         {% csrf_token %}
+                         <div class="alert alert-success alert-dismissible fade in" role="alert" style="margin-top: 10px; height: 15px;line-height: 6px;">
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="line-height: 6px"><span aria-hidden="true">×</span></button>
+                              <strong>提示：</strong> {{error_msg}}
+                            </div>
+                        <div class="form-group">
+                        <label for="nickname" class="col-sm-0 control-label"></label>
+                        <div class="col-sm-12">
+                          <input type="text" class="form-control-static inpwid" name="nickname" autocomplete="off" id="nickname" placeholder="昵称">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="username" class="col-sm-0 control-label"></label>
+                        <div class="col-sm-12">
+                          <input type="text" class="form-control-static inpwid" name="username" autocomplete="off" id="username" placeholder="账号">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="password" class="col-sm-0 control-label"></label>
+                        <div class="col-sm-12">
+                          <input type="password" class="form-control-static inpwid" name="password" autocomplete="off" id="password" placeholder="密码">
+                        </div>
+                      </div>
+                        <div class="form-group">
+                        <label for="con_password" class="col-sm-0 control-label"></label>
+                        <div class="col-sm-12">
+                          <input type="password" class="form-control-static inpwid" name="con_password" autocomplete="off" id="con_password" placeholder="确认密码">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="mobile" class="col-sm-0 control-label"></label>
+                        <div class="col-sm-12">
+                          <input type="text" class="form-control-static inpwid"  id="mobile" name="mobile" autocomplete="off" placeholder="手机号码">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="inputcode3" class="col-sm-0 control-label"></label>
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                            <input type="text" class="form-control-static inpwid" name="code" autocomplete="off" id="inputcode3" placeholder="验证码" >
+                            <span class="input-group-btn">
+                            <button class="btn btn-default zhucebtn1" type="button" id="zphone">获取验证码</button>
+                            </span>
+                            </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-12">
+                          <button type="submit" class="btn btn-primary  zhucebtn2">用户注册</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+
+            </div>
+            <div class="col-md-2"></div>
+            <div class="col-md-5">
+                <div class="login-box show-mobb ">
+                    <h4 class="float-clearfix fontw-b">
+                    adiCLUB会员相关权益<i class="icon icon-login-detial"></i>
+                    </h4>
+                    <div class="login-detial">
+                    <p class="login-right-tlt">
+                    成为adiCLUB会员并完善个人信息，即可享受更多权益:</p>
+                    <div class="regist-inner">
+                    <div>
+                    <i class="glyphicon glyphicon-ok"></i> <span>安全快捷支付订单</span>
+                    </div>
+                        <br>
+                    <div>
+                    <i class="glyphicon glyphicon-ok"></i> <span>随时跟踪订单状态</span>
+                    </div>
+                        <br>
+                    <div>
+                    <i class="glyphicon glyphicon-ok"></i> <span>即时收到打折优惠及新品发布信息</span>
+                    </div>
+                        <br>
+                    <div>
+                    <i class="glyphicon glyphicon-ok"></i> <span>全场免普通达运费和七天无理由退换货服务</span>
+                    </div>
+                        <br>
+                    <div>
+                    <i class="glyphicon glyphicon-ok"></i> <span>消费即可获得积分，铜牌以上会员即可积分兑换优惠券</span>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block content %}{% endblock %}
+{% block content2 %}{% endblock %}
+

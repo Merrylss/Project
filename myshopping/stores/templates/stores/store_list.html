@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查看店铺</title>
+</head>
+<body>
+<ul>
+    {% for s in store_list %}
+    <li>
+        <img src="/{{s.cover}}" alt="">
+        <br>
+        名称： <p>{{s.name}}</p><br>
+        状态：<p>{{s.status}}</p><br>
+        <a href="{% url 'stores:store_info' s.id %}">查看店铺详情</a>
+    </li>
+    <hr>
+    {% empty %}
+    <p>您还没有店铺</p><br>
+    {% endfor %}
+    <a href="{% url 'common:index' %}">返回</a>
+</ul>
+</body>
+</html>

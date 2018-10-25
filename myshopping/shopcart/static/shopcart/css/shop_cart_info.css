@@ -1,0 +1,27 @@
+body{
+    padding: 100px;
+}
+img{
+    width: 200px;
+    height: 200px;
+}
+.box111{
+    height:auto;
+    width:100%;
+    background-color: #eceef0;
+}
+.box222{
+    margin-left:100px;
+}
+
+.size1{
+    font-size:18px;
+
+}
+.shop_cart_item{
+    height: 200px;
+}
+
+.lift1{
+    margin-left:100px;
+}

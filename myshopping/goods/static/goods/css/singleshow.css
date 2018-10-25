@@ -1,0 +1,23 @@
+body{
+    padding-top: 200px;
+}
+.singleshow{
+
+    width:100%;
+    height:550px;
+    background-color:#eceef0;
+
+}
+
+.tupian{
+    width:400px;
+    height:400px;
+     margin-left:120px;
+}
+.xiangqing{
+    margin-top:25px;
+    margin-left:120px;
+    border-radius: 0;
+    width:400px;
+    height:500px;
+}

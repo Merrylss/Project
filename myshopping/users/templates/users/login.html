@@ -1,15 +1,111 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>用户登录</title>
-</head>
-<body>
-<form action="{% url 'users:user_login' %}" method="POST">
-    {% csrf_token %}
-    账号：<input type="text" name="username" id="username">
-    密码：<input type="password" name="password" id="password">
-    <input type="submit" value="用户登录">
-</form>
-</body>
-</html>
+{% extends 'base.html'%}
+{% block lunbo %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'users/css/login.css' %}">
+<!--------------------------------登陆----------------------------------------------------->
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-5">
+                <div class="panel panel-default zhuce1" >
+                  <div class="panel-heading zhuce11">
+                        <h3 class="panel-title zhuce111" >用户登陆 | <a class="dzqh" href="{% url 'users:user_register' %}">用户注册</a></h3>
+                  </div>
+                     <div class="alert alert-success alert-dismissible fade in" role="alert" style="margin-top: 10px; height: 15px;line-height: 6px;">
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="line-height: 6px"><span aria-hidden="true">×</span></button>
+                              <strong>提示：</strong> {{error_msg}}
+                            </div>
+                  <div class="panel-body">
+                    <form class="form-horizontal" action="{% url 'users:user_login' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="next_url" value="{{next_url}}">
+                        <div class="form-group">
+                        <label for="username" class="col-sm-0 control-label"></label>
+                        <div class="col-sm-12">
+                          <input type="text" class="form-control-static inpwid" name="username" id="username" placeholder="账号">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="password" class="col-sm-0 control-label"></label>
+                        <div class="col-sm-12">
+                          <input type="password" class="form-control-static inpwid" name="password" id="password" placeholder="密码">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-12">
+                          <div class="checkbox">
+                            <label>
+                              <input type="checkbox">记住密码
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-12">
+                          <button type="submit" class="btn btn-primary  zhucebtn2">用户登陆</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+
+            </div>
+            <div class="col-md-2"></div>
+            <div class="col-md-5">
+                <div class="login-box show-mobb ">
+                    <h4 class="float-clearfix fontw-b">
+                    adiCLUB会员相关权益<i class="icon icon-login-detial"></i>
+                    </h4>
+                    <div class="login-detial">
+                    <p class="login-right-tlt">
+                    成为adiCLUB会员并完善个人信息，即可享受更多权益:</p>
+                    <div class="regist-inner">
+                    <div>
+                    <i class="glyphicon glyphicon-ok"></i> <span>安全快捷支付订单</span>
+                    </div>
+                        <br>
+                    <div>
+                    <i class="glyphicon glyphicon-ok"></i> <span>随时跟踪订单状态</span>
+                    </div>
+                        <br>
+                    <div>
+                    <i class="glyphicon glyphicon-ok"></i> <span>即时收到打折优惠及新品发布信息</span>
+                    </div>
+                        <br>
+                    <div>
+                    <i class="glyphicon glyphicon-ok"></i> <span>全场免普通达运费和七天无理由退换货服务</span>
+                    </div>
+                        <br>
+                    <div>
+                    <i class="glyphicon glyphicon-ok"></i> <span>消费即可获得积分，铜牌以上会员即可积分兑换优惠券</span>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block content %}{% endblock %}
+{% block content2 %}{% endblock %}
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+    <!--<meta charset="UTF-8">-->
+    <!--<title>用户登录</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<form action="{% url 'users:user_login' %}" method="POST">-->
+    <!--{% csrf_token %}-->
+    <!--{{error_msg}}-->
+    <!--<input type="hidden" name="next_url" value="{{next_url}}">-->
+    <!--账号：<input type="text" name="username" id="username">-->
+    <!--密码：<input type="password" name="password" id="password">-->
+    <!--<input type="submit" value="用户登录">-->
+    <!--<a href="{%url 'users:user_logout' %}">用户退出</a>-->
+<!--</form>-->
+<!--</body>-->
+<!--</html>-->
+

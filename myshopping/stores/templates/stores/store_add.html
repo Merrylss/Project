@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>开店</title>
+</head>
+<body>
+<h2>开店{{error_code}}{{error_msg}}</h2>
+<form action="{% url 'stores:store_add' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <a href="{% url 'stores:store_list' %}">店铺列表</a>
+    名称：<input type="text" name="name" id="name"><br>
+    门面：<input type="file" name="cover" id="cover"><br>
+    描述：<textarea name="intro" id="intro" cols="30" rows="10"></textarea><br>
+    <input type="submit" value="开业">
+</form>
+</body>
+</html>

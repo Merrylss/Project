@@ -1,0 +1,43 @@
+body{
+    padding: 80px;
+}
+
+.userinfo1{
+    margin-top:50px;
+}
+.u1{
+    list-style: none;
+
+}
+.u1l{
+
+    margin-top:10px;
+
+}
+.u1la{
+     color:black;
+}
+.u1la:hover{
+    text-decoration: none;
+}
+.tit1{
+    font-size: 16px;
+}
+.pan1{
+    border-radius: 0;
+}
+
+/********userinfo2************/
+.xiugai1{
+    border-radius: 0;
+    background-color: #0286cd;
+}
+
+.from .form-group{
+    float:left;
+}
+
+.form-control-static{
+
+    margin-bottom: 30px;
+}

@@ -40,6 +40,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
+    'common',
+    'stores',
+    'goods',
+    'shopcart',
+    'orders',
+    'haystack',
+    'mysearch',
 ]
 
 MIDDLEWARE = [
@@ -57,7 +64,7 @@ ROOT_URLCONF = 'myshopping.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, "templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -84,7 +91,7 @@ DATABASES = {
         'NAME': 'shop',
         'USER': 'root',
         'PASSWORD': '123456',
-        'HOST': 'localhost',
+        'HOST': '192.168.13.61',
         'PORT': 3306,
         'CHARSET': 'utf8',
     }
@@ -126,8 +133,19 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.11/howto/static-files/
-
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+# 如果用户没有登录默认跳转的页面，与@login_required配合使用
+LOGIN_URL = '/users/login/'
+
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'mysearch.whoosh_cn_backend.WhooshEngine', # 将来需要修改
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'), }
+}
+
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 2
+
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
