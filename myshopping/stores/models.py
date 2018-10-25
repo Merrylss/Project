@@ -19,3 +19,7 @@ class Store(models.Model):
     # 关联外键
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    class Meta:
+        # 末尾不加s
+        verbose_name_plural = '店铺'
+

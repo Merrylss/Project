@@ -16,7 +16,7 @@
                   <div class="panel-body">
                     <ul class="u1">
                         <li class="u1l"><a class="u1la" href="">我的账户首页</a></li>
-                        <li class="u1l"><a class="u1la" href="">我的个人信息</a></li>
+                        <li class="u1l"><a class="u1la" href="{% url 'users:user_info' %}">我的个人信息</a></li>
                         <li class="u1l"><a class="u1la" href="{% url 'users:address_list' %}">我的地址薄</a></li>
                         <li class="u1l"><a class="u1la" href="{% url 'users:add_address' %}">添加收货地址</a></li>
                         <li class="u1l"><a class="u1la" href="">我的积分</a></li>
@@ -29,7 +29,7 @@
                   </div>
                   <div class="panel-body">
                     <ul class="u1">
-                        <li class="u1l"><a class="u1la" href="">我的订单</a></li>
+                        <li class="u1l"><a class="u1la" href="{% url 'orders:order_list' %}">我的订单</a></li>
                         <li class="u1l"><a class="u1la" href="">我的退单</a></li>
                     </ul>
                   </div>
@@ -103,25 +103,3 @@
 {% endblock %}
 {% block content %}{% endblock %}
 {% block content2 %}{% endblock %}
-<!--<!DOCTYPE html>-->
-<!--<html lang="en">-->
-<!--<head>-->
-    <!--<meta charset="UTF-8">-->
-    <!--<title>用户信息</title>-->
-<!--</head>-->
-<!--<body>-->
-<!--{{error_msg}}-->
-<!--{{request.user}}-->
-<!--<form action="{% url 'users:user_info' %}" method="post" enctype="multipart/form-data">-->
-    <!--{% csrf_token %}-->
-    <!--昵称：<input type="text" name="nickname" id="nickname" value="{{request.user.userinfo.nickname}}"><br>-->
-    <!--头像：<input type="file" name="header" id="header">-->
-    <!--<img src="/{{request.user.userinfo.header}}" alt=""><br>-->
-    <!--电话：<input type="text" name="phone" id="phone" value="{{request.user.userinfo.phone}}"><br>-->
-    <!--性别：<input type="text" name="gender" id="gender" value="{{request.user.userinfo.gender}}">-->
-    <!--<br>-->
-    <!--邮箱：<input type="email" name="email" id="email"><br>-->
-    <!--<input type="submit" value="完善资料">-->
-<!--</form>-->
-<!--</body>-->
-<!--</html>-->

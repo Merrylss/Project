@@ -17,7 +17,7 @@
                   <div class="panel-body">
                     <ul class="u1">
                         <li class="u1l"><a class="u1la" href="">我的账户首页</a></li>
-                        <li class="u1l"><a class="u1la" href="">我的个人信息</a></li>
+                        <li class="u1l"><a class="u1la" href="{% url 'users:user_info' %}">我的个人信息</a></li>
                         <li class="u1l"><a class="u1la" href="{% url 'users:address_list' %}">我的地址薄</a></li>
                         <li class="u1l"><a class="u1la" href="{% url 'users:add_address' %}">添加收货地址</a></li>
                         <li class="u1l"><a class="u1la" href="">我的积分</a></li>

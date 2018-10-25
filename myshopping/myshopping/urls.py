@@ -16,9 +16,14 @@ Including another URLconf
 from django.conf.urls import url
 from django.conf.urls import include
 from django.contrib import admin
+import xadmin
+from xadmin.plugins import xversion
+xadmin.autodiscover()
+xversion.register_models()
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^xadmin/', xadmin.site.urls),
     url(r'^search/',include("haystack.urls")), # 配置检索的路由
     url(r'^users/', include('users.urls', namespace='users')),
     url(r'^stores/', include('stores.urls', namespace='stores')),

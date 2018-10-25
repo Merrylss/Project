@@ -31,6 +31,12 @@ class Goods(models.Model):
     goodstype = models.ForeignKey(GoodsType, on_delete=models.CASCADE, verbose_name='商品类型')
     store = models.ForeignKey(stores.models.Store, on_delete=models.CASCADE, verbose_name='所属商店')
 
+    class Meta:
+        # 末尾不加s
+        verbose_name_plural = '商品'
+        # 末尾加s
+        # verbose_name = '商品'
+
 
 class GoodsImages(models.Model):
     """

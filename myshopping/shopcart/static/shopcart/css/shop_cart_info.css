@@ -25,3 +25,15 @@ img{
 .lift1{
     margin-left:100px;
 }
+
+.btn-danger{
+    width:100px;
+    height: 40px;
+    float: right;
+}
+
+/*.del-cart{*/
+    /*float: right;*/
+    /*margin-top: -100px;*/
+    /*margin-right: 50px;*/
+/*}*/

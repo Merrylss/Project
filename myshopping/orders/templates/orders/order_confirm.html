@@ -15,11 +15,12 @@
     <span>商品名称：{{shop_cart.goods.name}}</span>
     <span>商品价格：{{shop_cart.goods.price}}</span>
     <span>商品数量：{{shop_cart.count}}</span>
-    <span>总金额：{{shop_cart.total}}</span>
+    <span>总价：{{shop_cart.total}}</span>
 </div>
 {% endfor %}
 <hr>
-<h2>提交付款</h2>
+    <br>
+<h3>订单总价：{{total}}</h3>
 <form action="{% url 'orders:order_done' %}" method="post">
 <link rel="stylesheet" href="{% static 'shopcart/css/order_confirm.css'%}">
 
@@ -50,7 +51,7 @@
     {% empty %}
     <div>没有收获地址，请<a href="{% url 'users:add_address' %}">添加</a></div>
     {% endfor %}
-    <input type="submit" value="提交订单">
+    <button type="submit" class="btn btn-danger">提交订单</button>
 
 </form>
 </div>
@@ -58,26 +59,3 @@
 {% endblock %}
 {% block content %}{% endblock %}
 {% block content2 %}{% endblock %}
-
-
-
-
-
-
-
-
-
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>确认订单</title>
-</head>
-<body>
-<h2>请确认订单信息</h2>
-
-</body>
-</html>

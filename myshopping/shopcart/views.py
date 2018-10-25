@@ -56,18 +56,25 @@ def shop_cart_del(request, goods_id):
     :param request:
     :return:
     """
-    _goods = shopcart.models.ShopCart.objects.filter(pk=goods_id)
+    _goods = shopcart.models.ShopCart.objects.get(pk=goods_id)
     print(_goods)
     _goods.delete()
-    # return redirect(reverse("shopcart:shop_cart_info"))
+    return HttpResponse('成功')
 
 
 @login_required
-def shop_cart_update(requsest, goods_id):
+def shop_cart_update(requsest, goods_id, i):
     """
-    更让该购物车商品信息
+    更该购物车商品信息
     :param requsest:
     :param goods_id:
     :return:
     """
+    _goods = shopcart.models.ShopCart.objects.get(pk=goods_id)
+    # print(_goods)
+    _goods.count = i
+    things = goods.models.Goods.objects.get(pk=_goods.goods_id)
+    _goods.total = float(i) * things.price
+    _goods.save()
+    return HttpResponse('成功')
 

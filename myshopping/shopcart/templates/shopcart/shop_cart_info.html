@@ -2,14 +2,16 @@
 {% block lunbo %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'shopcart/css/shop_cart_info.css'%}">
+<script src="{% static 'shopcart/js/app/shop_cart_info.js'%}"></script>
 <div class="box111">
 <div class="shop_card_box box222">
     <form action="{% url 'orders:order_confirm' %}" method="POST">
         {% csrf_token %}
-
+    <input type="checkbox" style="width:20px;height: 20px;" name="" id="check_all">全选
     {% for shop_cart in shop_cart_list %}
     <div class="shop_cart_item ">
         <div class="col-md-12">
+
             <div class="col-md-3 left1">
                 <input type="checkbox" style="width:20px;height: 20px;" name="buy_goods_id" value="{{ shop_cart.id }}">
                 <img style="width: 150px;height: 150px;" src="/{{shop_cart.goods.goodsimages_set.all.first.path}}" alt="">
@@ -18,9 +20,9 @@
                 <p class="goods_name size1">商品名称：{{shop_cart.goods.name}}</p>
                 <p class="good_price size1" data-m="{{shop_cart.goods.price}}">商品价格：{{shop_cart.goods.price}}</p>
                 <div class="amount_box">
-                    <span class="reduce" style="cursor: pointer">-</span>
+                    <span class="reduce" down_goods_id="{{shop_cart.id}}" style="cursor: pointer">-</span>
                     <input type="text" name="count" value="{{shop_cart.count}}" class="sum">
-                    <span class="add" style="cursor: pointer">+</span>
+                    <span class="add" up_goods_id="{{shop_cart.id}}" style="cursor: pointer">+</span>
                 </div>
                 <p class="subtotal size1">总价：<span>{{shop_cart.total}}</span></p>
             </div>
@@ -31,114 +33,11 @@
     {% empty %}
     <div class="shop_cart_item">购物车为空!</div>
     {% endfor %}
-        <input type="checkbox" style="width:20px;height: 20px;" name="" id="check_all">全选
-        <input type="submit" value="结算">
-        <p id="sum">总价：</p>
+        <button type="submit" class="btn btn-danger">结算</button>
+
     </form>
 </div>
 </div>
-
-<script type="text/javascript">
-$(function(){
-
-        // 获取页面上的值
-        console.log($("p.subtotal > span").text());
-
-        $('.del-cart').click(function () {
-          // 获取需要的数据：商品编号
-          console.log(111);
-          var $goods_id = $(this).attr('goods_id');
-          console.log($goods_id);
-          $(this).parent().parent().remove();
-
-        // 发送ajax请求，删除商品
-        $.ajax({
-            url: '/shopcart/'+$goods_id+'/shop_cart_del/',
-            type: 'GET',
-            success:function (response) {
-                // console.log(response);
-                alert('商品删除成功！')
-            },
-
-            error:function () {
-                console.log('请求失败')
-            }
-        })
-      });
-
-        // 商品数量变化
-        $('.reduce').click(function () {
-              // 获取需要的数据：商品编号
-              console.log(111);
-              // var $goods_id = $(this).next().val();
-              var count = $(this).next().val();
-              if (count<=1){
-                  $(this).next().val(1)
-              }else{
-                  var num = count-1;
-                  $(this).next().val(num)
-              }
-          });
-
-        $('.add').click(function () {
-              // 获取需要的数据：商品编号
-              var count = $(this).prev().val();
-              var num = parseInt(count)+1;
-              $(this).prev().val(num);
-              // console.log(count);
-
-          });
-
-        //商品总价
-        $(function () {
-
-            $('.add').on('click', function(){
-                var i = $(this).prev().val();
-                var shop_total = i * $(this).parent().siblings(".good_price").attr("data-m");
-                $(this).parent().siblings(".subtotal").text("总价："+shop_total);
-                jisuan(this)
-            });
-                $('.reduce').on('click', function(){
-                var i = $(this).next().val();
-                var shop_total = i * $(this).parent().siblings(".good_price").attr("data-m");
-                $(this).parent().siblings(".subtotal").text("总价："+shop_total);
-            })
-
-            });
-
-         // 选择商品
-         $('#check_all').click(function () {
-            state=$(this).prop('checked');
-            $(':checkbox:not(#check_all)').prop('checked', state);
-            });
-            //选择
-            $(':checkbox:not(#check_all)').click(function () {
-                if ($(this).prop('checked')){
-                    if ($(':checked').length+1==$(':checkbox').length){
-                        $('#check_all').prop('checked', true);
-                    }
-                } else {
-                    $('#check_all').prop('checked', false);
-                }
-            });
-
-            // // 计算选中的商品总价
-            // function jisuan(obj){
-            //     var total=0;
-            //     var subtotal=document.getElementsByName("buy_goods_id");
-            //     // console.log(subtotal)
-            //     for(var i=0;i<subtotal.length;i++){
-            //         if(subtotal[i].checked) {
-            //             total = $("p.subtotal > span").text();
-            //             console.log(total)
-            //         }
-            //         }
-            //
-            //         }
-
-
-   });
-</script>
 {% endblock %}
 {% block content %}{% endblock %}
 {% block content2 %}{% endblock %}

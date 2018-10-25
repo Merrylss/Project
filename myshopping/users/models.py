@@ -3,6 +3,7 @@ from django.db import models
 # 导入django框架内置的用户模块
 from django.contrib.auth.models import User
 
+
 class UserInfo(models.Model):
     """
     定义用户扩展数据类型
@@ -19,6 +20,12 @@ class UserInfo(models.Model):
 
     # 和系统内置用户关联
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    class Meta:
+        # 末尾不加s
+        verbose_name_plural = '用户'
+        # 末尾加s
+        # verbose_name = '用户'
 
 
 class Address(models.Model):

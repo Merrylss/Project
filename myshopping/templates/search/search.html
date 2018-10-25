@@ -1,38 +1,55 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-{% if query %}
+{% extends 'base.html'%}
+{% block lunbo %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'shopcart/css/shop_cart_info.css'%}">
+<div class="box111">
+    <div class="shop_card_box box222">
+        {% if query %}
 <h3>搜索结果如下：</h3>
-{% for result in page.object_list %}
-    <a href="/goods/{{ result.object.id }}/goods_info/">
-        {{ result.object.name }}
-        {{ result.object.price }}
-            </a>
-<br/>
-        {% empty %}
-            <p>啥也没找到</p>
-        {% endfor %}
-        {% if page.has_previous or page.has_next %}
-        <div>
-            {% if page.has_previous %}
-                <a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">
-            {% endif %}
-                &laquo; 上一页
-            {% if page.has_previous %}
+<div class="banel">
+        <ul class="ambox">
+            {% for result in page.object_list %}
+
+            <li class="mbox">
+                <a href="/goods/{{ result.object.id }}/goods_info/">
+                <img src="/{{result.object.goodsimages_set.all.first.path}}" alt=""><br>
+                <span class="neirong2font">{{result.object.name}}</span><br>
+                <span class="neirong2font1">{{result.object.price}}</span>
                 </a>
-            {% endif %}
-            |
+                <!--<a class="add-cart" style=" margin-left: 30px;cursor:pointer;" goods_id="{{goods.id}}">加入购物车</a>-->
+            </li>
+            </a>
+            <br/>
+            {% empty %}
+                <p>没有该商品！</p>
+            {% endfor %}
+        </ul>
+</div>
+
+
+{% if page.has_previous or page.has_next %}
+<div>
+    {% if page.has_previous %}
+        <a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">
+    {% endif %}
+        &laquo; 上一页
+    {% if page.has_previous %}
+        </a>
+    {% endif %}
+    |
+    {% if page.has_next %}
+        <a href="?q={{ query }}&amp;page={{ page.next_page_number }}">
+            {% endif %} 下一页 &raquo;
             {% if page.has_next %}
-                <a href="?q={{ query }}&amp;page={{ page.next_page_number }}">
-                    {% endif %} 下一页 &raquo;
-                    {% if page.has_next %}
-                    </a>
-            {% endif %}
-        </div>
+            </a>
+    {% endif %}
+</div>
 {% endif %}
 {% endif %}
-</body>  <
-/html>
+    </div>
+</div>
+{% endblock %}
+{% block content %}{% endblock %}
+{% block content2 %}{% endblock %}
+
+

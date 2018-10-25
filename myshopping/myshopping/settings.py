@@ -47,6 +47,9 @@ INSTALLED_APPS = [
     'orders',
     'haystack',
     'mysearch',
+    'xadmin',
+    'crispy_forms',
+    'reversion',
 ]
 
 MIDDLEWARE = [

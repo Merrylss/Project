@@ -16,7 +16,7 @@
                   <div class="panel-body">
                     <ul class="u1">
                         <li class="u1l"><a class="u1la" href="">我的账户首页</a></li>
-                        <li class="u1l"><a class="u1la" href="">我的个人信息</a></li>
+                        <li class="u1l"><a class="u1la" href="{% url 'users:user_info' %}">我的个人信息</a></li>
                         <li class="u1l"><a class="u1la" href="{% url 'users:address_list' %}">我的地址薄</a></li>
                         <li class="u1l"><a class="u1la" href="{% url 'users:add_address' %}">添加收货地址</a></li>
                         <li class="u1l"><a class="u1la" href="">我的积分</a></li>
@@ -29,7 +29,7 @@
                   </div>
                   <div class="panel-body">
                     <ul class="u1">
-                        <li class="u1l"><a class="u1la" href="">我的订单</a></li>
+                        <li class="u1l"><a class="u1la" href="{% url 'orders:order_list' %}">我的订单</a></li>
                         <li class="u1l"><a class="u1la" href="">我的退单</a></li>
                     </ul>
                   </div>
@@ -57,28 +57,27 @@
 
                 </div>
 
-                <table border="1">
+                <table border="0%" class="table table-hover">
                     {% for addr in address_list %}
-                    <tr>
+                    <tr class="info">
                         <td>{{addr.consignee}}</td>
                         <td>{{addr.phone}}</td>
-                        <td>{{addr.province}}</td>
-                        <td>{{addr.city}}</td>
-                        <td>{{addr.country}}</td>
-                        <td>{{addr.street}}</td>
-                        <td>{{addr.intro}}</td>
-                        <br />
+                        <td>{{addr.province}}{{addr.city}}{{addr.country}}{{addr.street}}{{addr.intro}}</td>
                         <td>
                             {% if addr.is_default %}
                             默认地址
                             {% endif %}
                         </td>
+                        <td><a href="{% url 'users:delete_address' addr.id %}">删除地址</a></td>
+                        <br />
+
                     </tr>
                     {% empty %}
                     <tr>
                         <td>没有收货地址</td>
                     </tr>
                     {% endfor %}
+                </table>
 
 </table>
 

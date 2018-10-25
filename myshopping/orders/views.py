@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 import shopcart, users
 
 from . import models
-
+import orders
 
 def order_confirm(request):
     """
@@ -16,12 +16,17 @@ def order_confirm(request):
     buy_goods_id_list = request.POST.getlist('buy_goods_id')
     print(buy_goods_id_list)
     shop_cart_list = shopcart.models.ShopCart.objects.filter(pk__in=buy_goods_id_list)
-    print(shop_cart_list)
+    # # 计算总金额
+    total = 0
+    for sc_id in buy_goods_id_list:
+        # 查询购物对象
+        _shopcart = shopcart.models.ShopCart.objects.get(pk=sc_id)
+        total += _shopcart.total
+    print(total)
     if len(shop_cart_list) > 0:
-        return render(request, 'orders/order_confirm.html', {'shop_cart_list': shop_cart_list})
+        return render(request, 'orders/order_confirm.html', {'shop_cart_list': shop_cart_list, 'total':total})
     else:
         return redirect(reverse('shopcart:shop_cart_info'))
-
 
 
 def order_pay(request):
@@ -41,7 +46,6 @@ def order_done(request):
     """
     # 获取购买的商品
     shop_cart_list = request.POST.getlist('sc')
-
     # 获取购买者地址
     addr_id = request.POST['addr_id']
     address = users.models.Address.objects.get(pk=addr_id)
@@ -51,7 +55,7 @@ def order_done(request):
     # 生成订单
     myorder = models.MyOrder(user=request.user, address=addr, total=total)
     myorder.save()
-    # 创建订单项对象
+    # 创建订单对象
     for sc_id in shop_cart_list:
         # 查询购物对象
         _shopcart = shopcart.models.ShopCart.objects.get(pk=sc_id)
@@ -66,10 +70,10 @@ def order_done(request):
         order_item.save()
         # 计算总计金额
         total += _shopcart.total
+        print(total)
     # 更新总计金额
     myorder.total = total
     myorder.save()
-
     # 提交保存订单，跳转订单详情页面
     return redirect(reverse("orders:order_info", kwargs={'order_id': myorder.id}))
 
@@ -80,7 +84,8 @@ def order_list(request):
     :param request:
     :return:
     """
-    pass
+    order_list = orders.models.MyOrder.objects.filter(user_id=request.user.id)
+    return render(request, 'orders/order_list.html', {'order_list': order_list})
 
 
 def order_info(request, order_id):

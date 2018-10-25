@@ -206,6 +206,13 @@ def add_address(request):
 
 
 @login_required
+def delete_address(request, addr_id):
+    addr = models.Address.objects.get(pk=addr_id)
+    addr.delete()
+    return redirect(reverse("users:address_list"))
+
+
+@login_required
 def address_list(request):
     """
     地址列表
