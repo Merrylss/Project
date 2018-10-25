@@ -1,74 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<a href="{% url 'common:index' %}">首页</a><br>
-<table border="1">
-    <tr>
-        <td>店铺名称</td>
-        <td>{{store.name}}</td>
-    </tr>
-    <tr>
-        <td>店铺介绍</td>
-        <td>{{store.intro}}</td>
-    </tr>
-        <td>店铺状态</td>
-        <td>
-            {% if store.status == 0 %}
-            关闭
-            {% elif store.status == 1 %}
-            正常
-            {% endif %}
-        </td>
-    </tr>
-    <tr>
-        <td>开店时间</td>
-        <td>{{store.add_time}}</td>
-    </tr>
+{% extends 'base.html' %}
+{% block lunbo %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'stores/css/store_list.css' %}">
+<link rel="stylesheet" href="{% static 'stores/css/store_info.css' %}">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="jumbotron">
+              <h1>欢迎光临您的小店！🙂</h1>
+              <p><a class="btn btn-primary btn-lg" href="#" role="button">用户须知</a></p>
+            </div>
+            <!--已开店铺-->
+            <div class="col-md-12">
+                <div class="alert alert-success" role="alert">
+                  <a href="{% url 'stores:store_list' %}" class="alert-link"><p style="text-align: center">点击查看您拥有的小店~~~😀</p></a>
+                </div>
+            </div>
+            <div class="page-header">
+              <h1>店铺信息</h1>
+            </div>
+            <ul class="list-group">
+              <li class="list-group-item">店铺名称：{{store.name}}</li>
+              <li class="list-group-item">店铺介绍：{{store.intro}}</li>
+                {% if store.status == 0 %}
+                <li class="list-group-item">店铺状态：关闭</li>
+                {% elif store.status == 1 %}
+                <li class="list-group-item">店铺状态：正常</li>
+                {% endif %}
+
+              <li class="list-group-item">开店时间：{{store.add_time}}</li>
+            <li class="list-group-item">
+                <a class="btn btn-primary" role="button" href="{% url 'stores:store_close' store.id%}">关店</a><br>
+                <a class="btn btn-primary" role="button" href="{% url 'stores:store_del' store.id%}">删除铺店</a><br>
+                <a class="btn btn-primary" role="button" href="{% url 'stores:store_update' store.id%}">修改铺店信息</a><br>
+                <a class="btn btn-primary" role="button" href="{% url 'goods:goods_upload' store.id%}">上传商品</a><br>
+            </li>
+            </ul>
+        </div>
+    </div>
 
 
-</table>
-<a href="{% url 'stores:store_close' store.id%}">关店</a><br>
-    <a href="{% url 'stores:store_del' store.id%}">删店铺店</a><br>
-    <a href="{% url 'stores:store_update' store.id%}">修改铺店信息</a><br>
-    <a href="{% url 'goods:goods_upload' store.id%}">上传商品</a><br>
-<hr>
-<h2>商品</h2>
-{% for goods in store.goods_set.all %}
-<div>
-    <table border="1">
-       <tr>
-        <td>商品图片</td>
-        <td><img src="/{{goods.goodsimages_set.all.first.path}}" alt=""></td>
-    </tr>
-    <tr>
-        <td>商品名称</td>
-        <td>{{goods.name}}</td>
-    </tr>
-        <td>商品类型</td>
-        <td>{{goods.goodstype.parent.name}}----{{goods.goodstype.name}}</td>
-    </tr>
-    <tr>
-        <td>商品价格</td>
-        <td>{{goods.price}}</td>
-    </tr>
-        <tr>
-            <td>
-                <a href="{% url 'goods:goods_info' goods.id %}">查看详情</a>
-                <a href="#">修改商品</a>
-                <a href="#">删除商品</a>
-            </td>
-        </tr>
-    </table>
-    <p></p>
-    <p>商品名称{{goods.name}}</p>
+    <div class="row">
+        {% for goods in store.goods_set.all %}
+              <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                  <img src="/{{goods.goodsimages_set.all.first.path}}" alt="商品图片">
+                  <div class="caption">
+                    <p>商品名称：{{goods.name}}</p>
+                    <p>商品类型：{{goods.goodstype.parent.name}}--{{goods.goodstype.name}}</p>
+                    <p>商品价格：{{goods.price}}</p>
+                    <p><a href="{% url 'goods:goods_info' goods.id %}" class="btn btn-primary" role="button">查看</a> <a href="#" class="btn btn-default" role="button">返回</a></p>
+                  </div>
+                </div>
+              </div>
+            {% empty %}
+                <div>当前商店没有商品</div>
+            {% endfor %}
+        </div>
+
+
+
+
+
 </div>
-{% empty %}
-<div>当前商店没有商品</div>
-{% endfor %}
-
-</body>
-</html>
+{% endblock %}
+{% block content %}{% endblock %}
+{% block content2 %}{% endblock %}

@@ -1,18 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>开店</title>
-</head>
-<body>
-<h2>开店{{error_code}}{{error_msg}}</h2>
-<form action="{% url 'stores:store_add' %}" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <a href="{% url 'stores:store_list' %}">店铺列表</a>
-    名称：<input type="text" name="name" id="name"><br>
-    门面：<input type="file" name="cover" id="cover"><br>
-    描述：<textarea name="intro" id="intro" cols="30" rows="10"></textarea><br>
-    <input type="submit" value="开业">
+{% extends 'base.html' %}
+{% block lunbo %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'stores/css/store_add.css' %}">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="jumbotron">
+              <h1>欢迎光临您的小店！🙂</h1>
+              <p><a class="btn btn-primary btn-lg" href="#" role="button">用户须知</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!--已开店铺-->
+    <div class="col-md-12">
+        <div class="alert alert-success" role="alert">
+          <a href="{% url 'stores:store_list' %}" class="alert-link"><p style="text-align: center">点击查看您拥有的小店~~~😀</p></a>
+        </div>
+    </div>
+    <div class="page-header col-md-6">
+          <h1>开设新店铺</h1>
+        </div>
+    <div class="col-md-12">
+        <form action="{% url 'stores:store_add' %}" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+            <div class="form-group">
+            <label for="name">小店名称：</label>
+            <input type="text" class="form-control" name="name" id="name" placeholder="请输入">
+          </div>
+          <div class="form-group">
+            <label for="cover">小店封面</label>
+            <input type="file" name="cover" id="cover">
+          </div>
+            <label for="cover">小店介绍</label>
+            <textarea class="form-control" name="intro" rows="3"></textarea>
+          <button type="submit" class="btn btn-default">开店</button>
 </form>
-</body>
-</html>
+    </div>
+
+</div>
+{% endblock %}
+{% block content %}{% endblock %}
+{% block content2 %}{% endblock %}

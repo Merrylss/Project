@@ -1,0 +1,16 @@
+body{
+    padding-top: 100px;
+}
+
+.thumbnail h3{
+    text-align: center;
+}
+
+.thumbnail img{
+    width:200px;
+    height: 200px;
+}
+
+.caption p{
+    text-align: center;
+}

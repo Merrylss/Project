@@ -1,19 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>维护店铺</title>
-</head>
-<body>
-<form action="{% url 'stores:store_update' store.id%}" method="post" enctype="multipart/form-data">
-    {% csrf_token%}
-    名称：<input type="text" name="name" id="name" value="{{store.name}}">
-    封面：<input type="text" name="cover" id="cover">
-    状态：<input type="radio" name="status" id="1" value="1">正常
-    <input type="radio" name="status" id="0" value="0">暂停
-    <input type="radio" name="status" id="2" value="2">删除
-    <br>
-    <input type="submit" value="提交更改">
+{% extends 'base.html' %}
+{% block lunbo %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'stores/css/store_add.css' %}">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="jumbotron">
+              <h1>欢迎光临您的小店！🙂</h1>
+              <p><a class="btn btn-primary btn-lg" href="#" role="button">用户须知</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!--已开店铺-->
+    <div class="col-md-12">
+        <div class="alert alert-success" role="alert">
+          <a href="{% url 'stores:store_list' %}" class="alert-link"><p style="text-align: center">点击查看您拥有的小店~~~😀</p></a>
+        </div>
+    </div>
+    <div class="page-header col-md-6">
+          <h1>修改店铺信息</h1>
+        </div>
+    <div class="col-md-12">
+        <form action="{% url 'stores:store_update' store.id%}" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+            <div class="form-group">
+            <label for="name">小店名称：</label>
+            <input type="text" class="form-control" name="name" id="name" value="{{store.name}}" placeholder="请输入">
+          </div><div class="form-group">
+            <label>小店状态：</label>
+            <input type="radio" name="status" checked id="1" value="1">正常
+            <input type="radio" name="status" id="0" value="0">暂停
+            <input type="radio" name="status" id="2" value="2">删除
+          </div>
+          <div class="form-group">
+            <label for="cover">小店封面</label>
+            <input type="file" name="cover" id="cover">
+          </div>
+            <label for="cover">小店介绍</label>
+            <textarea class="form-control" name="intro" rows="3">{{store.intro}}</textarea>
+          <button type="submit" class="btn btn-danger">提交更改</button>
 </form>
-</body>
-</html>
+    </div>
+
+</div>
+{% endblock %}
+{% block content %}{% endblock %}
+{% block content2 %}{% endblock %}
+
+
+

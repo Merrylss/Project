@@ -1,32 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>商品上传</title>
-    {% load static %}
-    <script src="{% static 'js/lib/jquery2.2.4/jquery-2.2.4.js' %}"></script>
-    <script src="{% static 'goods/js/app/goods_upload.js' %}"></script>
-</head>
-<body>
-<form action="{% url 'goods:goods_upload' store_id %}" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    商品类型：<select id="type1">
-                <option>--请选择--</option>
-                {% for goodstype in goods_101_type %}
-                <option value="{{goodstype.id}}">{{goodstype.name}}</option>
-                {% endfor %}
-            </select>
-    <br>
-    具体类型：<select id="type2" name="type2">
-                <option>--请选择--</option>
-            </select>
-    <br>
-    名称：<input type="text" name="name" id="name"><br>
-    图片：<input type="file" name="img" id="img"><br>
-    价格：<input type="text" name="price" id="price"><br>
-    库存：<input type="text" name="stock" id="stock"><br>
-    描述：<textarea name="intro" id="intro" cols="30" rows="10"></textarea>
-    <input type="submit" value="上传">
+{% extends 'base.html' %}
+{% block lunbo %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'stores/css/store_add.css' %}">
+<script src="{% static 'goods/js/app/goods_upload.js' %}"></script>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="jumbotron">
+              <h1>欢迎光临您的小店！🙂</h1>
+              <p><a class="btn btn-primary btn-lg" href="#" role="button">用户须知</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!--已开店铺-->
+    <div class="page-header col-md-6">
+          <h1>上传商品</h1>
+        </div>
+    <div class="col-md-12">
+        <form action="{% url 'goods:goods_upload' store_id %}" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+            <h3>商品类型</h3>
+                <select class="form-control" id="type1">
+                      <option>请选择</option>
+                        {% for goodstype in goods_101_type %}
+                        <option value="{{goodstype.id}}">{{goodstype.name}}</option>
+                        {% endfor %}
+                    </select>
+            <h3>具体类型</h3>
+                <select class="form-control" id="type2" name="type2">
+                    <option>--请选择--</option>
+                </select>
+            <div class="form-group">
+            <label for="name">商品名称：</label>
+            <input type="text" class="form-control" name="name" id="name" placeholder="请输入">
+          </div>
+          <div class="form-group">
+            <label for="img">商品图片</label>
+            <input type="file" name="img" id="img">
+          </div>
+            <div class="form-group">
+            <label for="price">商品价格：</label>
+            <input type="text" class="form-control" name="price" id="price" placeholder="请输入">
+          </div>
+            <div class="form-group">
+            <label for="stock">商品库存：</label>
+            <input type="text" class="form-control" name="stock" id="stock" placeholder="请输入">
+          </div>
+            <label for="intro">商品介绍：</label>
+            <textarea class="form-control" name="intro" id="intro" rows="3"></textarea>
+          <button type="submit" class="btn btn-default">上传</button>
 </form>
-</body>
-</html>
+    </div>
+
+</div>
+{% endblock %}
+{% block content %}{% endblock %}
+{% block content2 %}{% endblock %}
