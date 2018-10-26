@@ -59,13 +59,3 @@ def index(request):
                                                  'goods_list_3': goods_list_3, \
                                                  'goods_list_4': goods_list_4, \
                                                  'goods_list_5': goods_list_5})
-
-
-@login_required
-def test(request):
-    '''
-    登陆测试
-    :param request:
-    :return:
-    '''
-    return render(request, 'common/test.html', {})

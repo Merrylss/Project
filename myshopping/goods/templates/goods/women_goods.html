@@ -9,7 +9,7 @@
         <div class="col-md-12">
 
             <ul class="astu">
-                {% for goods in goods_list_2 %}
+                {% for goods in goods_list_2|slice:":4" %}
                 <li class="stu">
                     <a class="afont" href="{% url 'goods:goods_info' goods.id %}">
                         <img src="/{{goods.goodsimages_set.all.first.path}}" alt="">

@@ -29,7 +29,7 @@
                 </div>
               </div>
             {% empty %}
-            <h2>您还没有店铺!请<a href="{% url 'stores:store_add' %}"></a></h2>
+            <h2>您还没有店铺!请<a href="{% url 'stores:store_add' %}" style="color: red;">开店</a></h2>
             {% endfor %}
         </div>
 

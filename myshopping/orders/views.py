@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
-
+from django.contrib.auth.decorators import login_required
 import shopcart, users
 
 from . import models
 import orders
 
+
+@login_required
 def order_confirm(request):
     """
     订单确认
@@ -29,6 +31,7 @@ def order_confirm(request):
         return redirect(reverse('shopcart:shop_cart_info'))
 
 
+@login_required
 def order_pay(request):
     """
     订单支付
@@ -38,6 +41,7 @@ def order_pay(request):
     pass
 
 
+@login_required
 def order_done(request):
     """
     生成订单
@@ -78,6 +82,7 @@ def order_done(request):
     return redirect(reverse("orders:order_info", kwargs={'order_id': myorder.id}))
 
 
+@login_required
 def order_list(request):
     """
     查看订单列表
@@ -88,6 +93,7 @@ def order_list(request):
     return render(request, 'orders/order_list.html', {'order_list': order_list})
 
 
+@login_required
 def order_info(request, order_id):
     """
     查看订单信息

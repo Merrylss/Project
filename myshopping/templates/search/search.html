@@ -6,25 +6,41 @@
     <div class="shop_card_box box222">
         {% if query %}
 <h3>搜索结果如下：</h3>
-<div class="banel">
-        <ul class="ambox">
-            {% for result in page.object_list %}
-
-            <li class="mbox">
-                <a href="/goods/{{ result.object.id }}/goods_info/">
-                <img src="/{{result.object.goodsimages_set.all.first.path}}" alt=""><br>
-                <span class="neirong2font">{{result.object.name}}</span><br>
-                <span class="neirong2font1">{{result.object.price}}</span>
-                </a>
-                <!--<a class="add-cart" style=" margin-left: 30px;cursor:pointer;" goods_id="{{goods.id}}">加入购物车</a>-->
-            </li>
-            </a>
-            <br/>
+        <div class="row">
+        {% for result in page.object_list %}
+              <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                  <img src="/{{result.object.goodsimages_set.all.first.path}}" alt="商品图片">
+                  <div class="caption">
+                    <p>商品名称：{{result.object.name}}</p>
+                    <p>商品价格：{{result.object.price}}</p>
+                    <p><a href="/goods/{{ result.object.id }}/goods_info/" class="btn btn-primary" role="button">查看</a> <a href="{% url 'common:index' %}" class="btn btn-default" role="button">返回</a></p>
+                  </div>
+                </div>
+              </div>
             {% empty %}
-                <p>没有该商品！</p>
+                <h2>没有该商品</h2>
             {% endfor %}
-        </ul>
-</div>
+        </div>
+<!--<div class="banel">-->
+        <!--<ul class="ambox">-->
+            <!--{% for result in page.object_list %}-->
+
+            <!--<li class="mbox">-->
+                <!--<a href="/goods/{{ result.object.id }}/goods_info/">-->
+                <!--<img src="/{{result.object.goodsimages_set.all.first.path}}" alt=""><br>-->
+                <!--<span class="neirong2font">{{result.object.name}}</span><br>-->
+                <!--<span class="neirong2font1">{{result.object.price}}</span>-->
+                <!--</a>-->
+                <!--&lt;!&ndash;<a class="add-cart" style=" margin-left: 30px;cursor:pointer;" goods_id="{{goods.id}}">加入购物车</a>&ndash;&gt;-->
+            <!--</li>-->
+            <!--</a>-->
+            <!--<br/>-->
+            <!--{% empty %}-->
+                <!--<p>没有该商品！</p>-->
+            <!--{% endfor %}-->
+        <!--</ul>-->
+<!--</div>-->
 
 
 {% if page.has_previous or page.has_next %}

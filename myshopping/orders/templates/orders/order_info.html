@@ -1,42 +1,37 @@
-{% extends 'base.html'%}
+{% extends 'base.html' %}
 {% block lunbo %}
 {% load static %}
-<link rel="stylesheet" href="{% static 'shopcart/css/shop_cart_info.css'%}">
-<div class="box111">
-    <h3>查看订单详情</h3>
-<div>
-    订单编号：{{order.id}}
-    <p>下单时间：{{order.order_time|date:'Y-m-d G:i:s'}}</p>
-    <p>收货地址：{{order.address}}</p>
-    <p>总计金额：{{order.total}}</p>
-</div>
-<hr>
-<div style="width: 800px;">
-    {% for orderitem in order.myorderitem_set.all %}
-    <img src="/{{orderitem.goods_img}}" alt="">
-    <p>商品名称：{{orderitem.goods_name}}</p>
-    <p>成交价格：{{orderitem.goods_price}}</p>
-    <p>购买数量：{{orderitem.goods_count}}</p>
-    <p>小计金额：{{orderitem.goods_subtotal}}</p>
-    {% empty %}
-    <p>没有购买商品</p>
-    {% endfor %}
-</div>
-
-<!--<div>-->
-    <!--<hr>-->
-    <!--<p>总金额：</p>-->
-<!--</div>-->
+<!--<link rel="stylesheet" href="{% static 'stores/css/store_add.css' %}">-->
+<!--<link rel="stylesheet" href="{% static 'stores/css/store_add.css' %}">-->
+<link rel="stylesheet" href="{% static 'orders/css/order_confirm.css'%}">
+<div class="container">
+    <div class="page-header col-md-12">
+          <h1>订单信息</h1>
+            <h3>订单编号：{{order.id}}</h3>
+            <h3>下单时间：{{order.order_time|date:'Y-m-d G:i:s'}}</h3>
+            <h3>收货地址：{{order.address}}</h3>
+            <h3>总计金额：{{order.total}}</h3>
+        </div>
+    <div class="row">
+        {% for orderitem in order.myorderitem_set.all %}
+          <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+              <img src="/{{orderitem.goods_img}}" alt="...">
+              <div class="caption">
+                <h3>{{orderitem.goods_name}}</h3>
+                <p>价格：{{orderitem.goods_price}}</p>
+                <p>数量：{{orderitem.goods_count}}</p>
+                <p>小计金额：{{orderitem.goods_subtotal}}</p>
+                <!--<p><a href="{% url 'common:index' %}" class="btn btn-primary" role="button">继续购买</a> </p>-->
+              </div>
+            </div>
+          </div>
+             {% empty %}
+                <h3>没有购买商品 <a href="{% url 'common:index' %}">购买</a></h3>
+            {% endfor %}
+    </div>
 
 </div>
 {% endblock %}
 {% block content %}{% endblock %}
 {% block content2 %}{% endblock %}
-
-
-
-
-
-
-
-

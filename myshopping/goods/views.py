@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse
 from django.views.decorators.http import require_GET, require_POST
 from django.core.serializers import serialize
 from django.http import HttpResponse
-# Create your views here.
+
 
 from . import models
 import stores
@@ -45,7 +45,8 @@ def goods_upload(request, store_id):
         goods_images.save()
 
         # 跳转到商品详情
-        return redirect(reverse('goods:goods_info', kwargs={'goods_id': goods.id}))
+        # return redirect(reverse('goods:goods_info', kwargs={'goods_id': goods.id}))
+        return redirect(reverse('stores:store_info', kwargs={'s_id': store_id}))
 
 
 @require_GET
@@ -78,6 +79,11 @@ def goodstype(requset):
 
 
 def man_goods(request):
+    """
+    男子商品页面
+    :param request:
+    :return:
+    """
     goods_type_1 = goods.models.GoodsType.objects.get(pk=101)
     goods_type_1_list = goods.models.GoodsType.objects.filter(parent=goods_type_1)
     goods_list_1 = goods.models.Goods.objects.filter(goodstype__in=goods_type_1_list)
@@ -97,6 +103,11 @@ def man_goods(request):
 
 
 def women_goods(request):
+    """
+    女子商品页面
+    :param request:
+    :return:
+    """
     goods_type_2 = goods.models.GoodsType.objects.get(pk=102)
     goods_type_2_list = goods.models.GoodsType.objects.filter(parent=goods_type_2)
     goods_list_2 = goods.models.Goods.objects.filter(goodstype__in=goods_type_2_list)
@@ -115,6 +126,11 @@ def women_goods(request):
 
 
 def children_goods(request):
+    """
+    儿童商品页面
+    :param request:
+    :return:
+    """
     # 本月主推
     goods_type_4 = goods.models.GoodsType.objects.get(pk=104)
     goods_type_4_list = goods.models.GoodsType.objects.filter(parent=goods_type_4)

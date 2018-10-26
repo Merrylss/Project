@@ -1,4 +1,7 @@
 import os
+import random
+import http.client
+import urllib.parse
 
 
 from django.shortcuts import render, redirect
@@ -7,11 +10,22 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 # 系统内置的登录模块 authenticate:身份认证
 from django.contrib.auth import authenticate, login, logout
+# 内置函数、用户登录才能访问
 from django.contrib.auth.decorators import login_required
 # 事务管理
 from django.db import transaction
-# Create your views here.
+from django.http.response import JsonResponse
+
+
 from . import models
+# 请求的路径
+host = "106.ihuyi.com"
+sms_send_uri = "/webservice/sms.php?method=Submit"
+# 用户名是登录ihuyi.com账号名
+account = "C76038540"
+# 密码 查看密码请登录用户中心->验证码、通知短信->帐户及签名设置->APIKEY
+password = "9ec6e4ed7e1d64effc8f589a6065ee23"
+
 
 # 该函数具有原子性
 @transaction.atomic
@@ -89,7 +103,6 @@ def user_login(request):
         except:
             next_url = '/'
         return render(request, 'users/login.html', {'next_url': next_url, 'error_msg': '请登陆'})
-        # return render(request, 'users/login.html', {})
 
     elif request.method == 'POST':
         # 获取数据
@@ -108,8 +121,6 @@ def user_login(request):
                     next_url = '/'
                 # 记录登录状态
                 login(request, user)
-                # request.session['loginUser'] = user
-                # return redirect(reverse('common:index'))
                 return redirect(next_url)
                 # return render(request, 'users/login.html', {'error_code': 0, 'error_msg': '登陆成功！'})
             else:
@@ -142,41 +153,39 @@ def user_info(request, **kwargs):
     if request.method == 'GET':
         return render(request, 'users/user_info.html', {})
     elif request.method == 'POST':
-        nickname = request.POST['nickname']
-        header = request.FILES['header']
-        phone = request.POST['phone']
-        gender = request.POST['gender']
-        email = request.POST['email']
-        print(gender)
-
-        # 设置原点
-        s_id = transaction.savepoint()
-
         try:
-            request.user.userinfo.nickname = nickname
-            request.user.userinfo.header = header
-            request.user.userinfo.phone = phone
-            request.user.userinfo.gender = gender
-            request.user.email = email
-            # user = models.UserInfo.objects.get(user=request.user)
-            # s = user.header
-            # print(s)
-            # if str(s) != str('static/images/header/default.jpg'):
-            #     os.remove(str(s))
-            # request.user.userinfo.header = 'static/images/header/%s' % header
-            request.user.save()
-            request.user.userinfo.save()
-            transaction.savepoint_commit(s_id)
-            return render(request, 'users/user_info.html', {'error_code': 1, 'error_msg': '资料完善成功！'})
+            nickname = request.POST['nickname']
+            header = request.FILES['header']
+            phone = request.POST['phone']
+            gender = request.POST['gender']
+            email = request.POST['email']
+            print(gender)
+
+            # 设置原点
+            s_id = transaction.savepoint()
+
+            try:
+                request.user.userinfo.nickname = nickname
+                request.user.userinfo.header = header
+                request.user.userinfo.phone = phone
+                request.user.userinfo.gender = gender
+                request.user.email = email
+                request.user.save()
+                request.user.userinfo.save()
+                transaction.savepoint_commit(s_id)
+                return render(request, 'users/user_info.html', {'error_code': 1, 'error_msg': '资料完善成功！'})
+            except:
+                transaction.savepoint_rollback(s_id)
+                return render(request, 'users/user_info.html', {'error_code': -1, 'error_msg': '资料完善失败！'})
         except:
-            transaction.savepoint_rollback(s_id)
-            return render(request, 'users/user_info.html', {'error_code': -1, 'error_msg': '资料完善失败！'})
+            return render(request, 'users/user_info.html', {'error_code': 1, 'error_msg': '资料完善成功！'})
+
 
 @login_required
 def add_address(request):
     """
     添加地址
-    :param request:
+    :param request:请求头对象
     :return:
     """
     if request.method == 'GET':
@@ -207,6 +216,12 @@ def add_address(request):
 
 @login_required
 def delete_address(request, addr_id):
+    """
+    删除地址
+    :param request:请求头对象
+    :param addr_id:地址id
+    :return:
+    """
     addr = models.Address.objects.get(pk=addr_id)
     addr.delete()
     return redirect(reverse("users:address_list"))
@@ -223,21 +238,12 @@ def address_list(request):
     return render(request, 'users/address_list.html', {'address_list': _address_list})
 
 
-# 请求的路径
-host = "106.ihuyi.com"
-sms_send_uri = "/webservice/sms.php?method=Submit"
-# 用户名是登录ihuyi.com账号名
-account = "C76038540"
-# 密码 查看密码请登录用户中心->验证码、通知短信->帐户及签名设置->APIKEY
-password = "9ec6e4ed7e1d64effc8f589a6065ee23"
-import random
-
-from django.http.response import JsonResponse
-import http.client
-import urllib.parse
-
-
 def send_message(request):
+    """
+    短信验证
+    :param request: 请求头对象
+    :return:
+    """
     """发送信息的视图函数"""
     # 获取ajax的get方法发送过来的手机号码
     mobile = request.GET.get('mobile')

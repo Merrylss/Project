@@ -2,11 +2,12 @@ from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
 # 装饰器函数，要求登录访问
 from django.contrib.auth.decorators import login_required
+# 固定请求方式
 from django.views.decorators.http import require_GET, require_POST
 # 事务管理
 from django.db import transaction
 
-# Create your views here.
+
 from . import models
 
 
@@ -102,7 +103,7 @@ def store_close(request, store_id):
     store = models.Store.objects.get(id=store_id)
     store.status = 0
     store.save()
-    return redirect(reverse('stores:store_info', kwargs={'store_id': store_id}))
+    return redirect(reverse('stores:store_info', kwargs={'s_id': store_id}))
 
 
 @require_GET

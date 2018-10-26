@@ -60,7 +60,8 @@
                               <td>订单编号</td>
                               <td>订单收货地址</td>
                               <td>订单时间</td>
-                              <td>订单金额</td>
+                              <td>金额</td>
+                              <td>查看详情</td>
                           </tr>
                           {% for order in order_list %}
                           <tr>
@@ -68,6 +69,7 @@
                               <td>{{order.address}}</td>
                               <td>{{order.order_time}}</td>
                               <td>{{order.total}}</td>
+                              <td><a href="{% url 'orders:order_info' order.id %}">详情</a></td>
                           </tr>
                           {% empty %}
                       <p>你该没有订单</p>

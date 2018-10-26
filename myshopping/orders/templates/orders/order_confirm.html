@@ -1,60 +1,85 @@
-{% extends 'base.html'%}
+{% extends 'base.html' %}
 {% block lunbo %}
 {% load static %}
-<link rel="stylesheet" href="{% static 'shopcart/css/shop_cart_info.css'%}">
-<div class="box111">
-<div class="shop_card_box box222">
-    {% for sc in shop_cart_list %}
-<input type="hidden" name="sc" value="{{sc.id}}">
-{% endfor %}
-<!--展示用户收货地址-->
-{% for shop_cart in shop_cart_list %}
+<!--<link rel="stylesheet" href="{% static 'stores/css/store_add.css' %}">-->
+<!--<link rel="stylesheet" href="{% static 'stores/css/store_add.css' %}">-->
+<link rel="stylesheet" href="{% static 'orders/css/order_confirm.css'%}">
+<div class="container">
+    <!--已开店铺-->
+    <!--<div class="col-md-12">-->
+        <!--<div class="alert alert-success" role="alert">-->
+          <!--<a href="{% url 'stores:store_list' %}" class="alert-link"><p style="text-align: center">点击查看您拥有的小店~~~😀</p></a>-->
+        <!--</div>-->
+    <!--</div>-->
+    <form action="{% url 'orders:order_done' %}" method="post">
+            <div class="page-header">
+          <h1>选择收货地址 <br>
+              <small>
+                {% csrf_token %}
 
-<div>
-    <img src="/{{shop_cart.goods.goodsimages_set.first.path}}" alt="">
-    <span>商品名称：{{shop_cart.goods.name}}</span>
-    <span>商品价格：{{shop_cart.goods.price}}</span>
-    <span>商品数量：{{shop_cart.count}}</span>
-    <span>总价：{{shop_cart.total}}</span>
-</div>
-{% endfor %}
-<hr>
-    <br>
-<h3>订单总价：{{total}}</h3>
-<form action="{% url 'orders:order_done' %}" method="post">
-<link rel="stylesheet" href="{% static 'shopcart/css/order_confirm.css'%}">
+                <!--
+                1. 用户收货地址 : input:radio
+                2. 用户购物车结算商品:shop_cart_list
+                <!--展示用户所有收货地址-->
+                <br />
+                {% for sc in shop_cart_list %}
+                <input type="hidden" name="sc" value="{{sc.id}}">
+                {% endfor %}
 
-    {% csrf_token %}
+                {% for address in shop_cart_list.first.users.address_set.all %}
+                {% if address.is_default %}
+                    <input type="radio" name="addr_id" checked value="{{address.id}}">
+                    {{address.consignee}}--{{address.phone}}--{{address.nation}}->{{address.province}}->{{address.city}}->{{address.country}}->{{address.street}}->{{address.intro}}
+                    <br />
+                {% else %}
+                    <input type="radio" name="addr_id" value="{{address.id}}">
+                    {{address.consignee}}--{{address.phone}}--{{address.nation}}->{{address.province}}->{{address.city}}->{{address.country}}->{{address.street}}->{{address.intro}}
+                    <br />
+                {% endif %}
 
-    <!--
-    1. 用户收货地址 : input:radio
-    2. 用户购物车结算商品:shop_cart_list
-    -->
-    选择收货地址：
-    <!--展示用户所有收货地址-->
-    <br />
-    {% for sc in shop_cart_list %}
-    <input type="hidden" name="sc" value="{{sc.id}}">
-    {% endfor %}
+                {% empty %}
+                <div>没有收获地址，请<a href="{% url 'users:add_address' %}">添加</a></div>
+                {% endfor %}
 
-    {% for address in shop_cart_list.first.users.address_set.all %}
-    {% if address.is_default %}
-        <input type="radio" name="addr_id" checked value="{{address.id}}">
-        {{address.consignee}}--{{address.phone}}--{{address.nation}}->{{address.province}}->{{address.city}}->{{address.country}}->{{address.street}}->{{address.intro}}
-        <br />
-    {% else %}
-        <input type="radio" name="addr_id" value="{{address.id}}">
-        {{address.consignee}}--{{address.phone}}--{{address.nation}}->{{address.province}}->{{address.city}}->{{address.country}}->{{address.street}}->{{address.intro}}
-        <br />
-    {% endif %}
+              </small>
+          </h1>
+        </div>
+    <div class="page-header col-md-12">
+          <h1>订单确认</h1>
+        {% for sc in shop_cart_list %}
+            <input type="hidden" name="sc" value="{{sc.id}}">
+            {% endfor %}
 
-    {% empty %}
-    <div>没有收获地址，请<a href="{% url 'users:add_address' %}">添加</a></div>
-    {% endfor %}
-    <button type="submit" class="btn btn-danger">提交订单</button>
+        </div>
+
+        <div class="page-header col-md-12 title">
+          <h3>商品图片</h3>
+          <h3>商品信息</h3>
+          <h3>商品总价</h3>
+        </div>
+
+    <div class="col-md-12">
+        {% for shop_cart in shop_cart_list %}
+            <div class="media">
+              <div class="media-left media-middle">
+                <a href="#">
+                  <img class="media-object" src="/{{shop_cart.goods.goodsimages_set.first.path}}" alt="...">
+                </a>
+              </div>
+              <div class="media-body media-middle">
+                <h3 class="media-heading">{{shop_cart.goods.name}}</h3>
+                <h3 class="media-heading">价格：{{shop_cart.goods.price}}</h3>
+                <h3 class="media-heading">数量：{{shop_cart.count}}</h3>
+                <h3 class="media-heading total">小计：{{shop_cart.total}}</h3>
+              </div>
+        </div>
+        {% endfor %}
+
+    </div>
+        <h3 align="right" style="color: red;">订单总价：{{total}}</h3>
+        <button type="submit" class="btn btn-danger">提交订单</button>
 
 </form>
-</div>
 </div>
 {% endblock %}
 {% block content %}{% endblock %}
